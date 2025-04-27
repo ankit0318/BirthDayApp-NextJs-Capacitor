@@ -45,15 +45,15 @@ const Register: React.FC<RegisterProps> = ({ onLoginClick }) => {
         await Preferences.set({ key: "username", value: name });
         // Fallback to localStorage for web
         localStorage.setItem("username", name);
-      } catch (err) {
+      } catch {
         // If Capacitor fails, use localStorage as fallback
         localStorage.setItem("username", name);
       }
 
       // Registration success is handled by the AuthContext
-    } catch (err: unknown) {
+    } catch (error: unknown) {
       const errorMessage =
-        err instanceof Error ? err.message : "Please try again.";
+        error instanceof Error ? error.message : "Please try again.";
       setError("Failed to create an account. " + errorMessage);
     } finally {
       setLoading(false);
